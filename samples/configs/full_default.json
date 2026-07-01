@@ -1,0 +1,24 @@
+{
+  "include_provenance": true,
+  "include_confidence": true,
+  "on_missing": "null",
+  "fields": [
+    { "name": "candidate_id",    "from": "candidate_id",     "type": "string" },
+    { "name": "full_name",       "from": "full_name",        "type": "string" },
+    { "name": "emails",          "from": "emails",           "type": "array",  "element_type": "string" },
+    { "name": "phones",          "from": "phones",           "type": "array",  "element_type": "string" },
+    { "name": "location",        "from": "location",         "type": "object",
+      "element_type": { "city": "string", "region": "string", "country": "string" } },
+    { "name": "links",           "from": "links",            "type": "object",
+      "element_type": { "linkedin": "string", "github": "string", "portfolio": "string", "other": "array" } },
+    { "name": "headline",        "from": "headline",         "type": "string" },
+    { "name": "years_experience","from": "years_experience", "type": "number" },
+    { "name": "skills",          "from": "skills",           "type": "array",
+      "element_type": { "name": "string", "confidence": "number", "sources": "array" } },
+    { "name": "unknown_skills",  "from": "unknown_skills",   "type": "array",  "element_type": "string" },
+    { "name": "experience",      "from": "experience",       "type": "array",
+      "element_type": { "company": "string", "title": "string", "start": "string", "end": "string", "summary": "string" } },
+    { "name": "education",       "from": "education",         "type": "array",
+      "element_type": { "institution": "string", "degree": "string", "field": "string", "end_year": "number" } }
+  ]
+}

@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "candidate-transformer"
+version = "0.1.0"
+description = "Deterministic, explainable multi-source candidate data transformer"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Candidate Transformer Team" }]
+keywords = ["candidate", "etl", "normalization", "provenance", "deterministic"]
+
+# Pinned to exact, stable known-good versions for reproducible, deterministic builds.
+dependencies = [
+    "phonenumbers==8.13.55",
+    "pycountry==24.6.1",
+    "rapidfuzz==3.9.7",
+    "pdfplumber==0.11.7",
+    "pymupdf==1.28.0",
+    "python-docx==1.2.0",
+]
+
+[project.optional-dependencies]
+# Test/dev tooling pinned alongside runtime deps for reproducible test runs.
+test = [
+    "pytest==8.3.3",
+    "hypothesis==6.112.0",
+]
+
+[project.scripts]
+# Console-script entry point stub; full CLI implemented in a later task.
+candidate-transform = "candidate_transformer.cli.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["candidate_transformer*"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-ra"
+
+[tool.hypothesis]
+# The active Hypothesis profile is registered and loaded in tests/conftest.py
+# (the "ci" profile uses max_examples = 100, satisfying the design's minimum).

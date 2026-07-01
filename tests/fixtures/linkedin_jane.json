@@ -1,0 +1,31 @@
+{
+  "name": "Jane Doe",
+  "headline": "Senior Software Engineer at Acme Corporation",
+  "location": "San Francisco, California, United States",
+  "email": "jane.doe@example.com",
+  "profile_url": "https://www.linkedin.com/in/janedoe",
+  "skills": ["Python", "JavaScript", "Kubernetes", "Python"],
+  "experience": [
+    {
+      "company": "Acme Corporation",
+      "title": "Senior Software Engineer",
+      "start": "March 2019",
+      "end": "Present",
+      "description": "Led migration to a service-oriented architecture."
+    },
+    {
+      "company": "Globex Systems",
+      "title": "Software Engineer",
+      "start": "June 2015",
+      "end": "February 2019"
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of California, Berkeley",
+      "degree": "B.S.",
+      "field": "Computer Science",
+      "end_year": "2015"
+    }
+  ]
+}

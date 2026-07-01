@@ -13,27 +13,28 @@ JSON schema** at runtime.
 
 ---
 
-## Table of contents
-1. [The problem](#the-problem)
-2. [Architecture](#architecture)
-3. [Key design decisions](#key-design-decisions)
-4. [Quick start](#quick-start)
-5. [Important commands (for evaluators)](#important-commands-for-evaluators)
-6. [The canonical schema](#the-canonical-schema)
-7. [Projection configs](#projection-configs)
-8. [Testing](#testing)
-9. [Known limitations & future work](#known-limitations--future-work)
-10. [Repository layout](#repository-layout)
+## Table of Contents
+
+- [1. The Problem](#1-the-problem)
+- [2. Architecture](#2-architecture)
+- [3. Key Design Decisions](#3-key-design-decisions)
+- [4. Quick Start](#4-quick-start)
+- [5. Important Commands](#5-important-commands)
+- [6. The Canonical Schema](#6-the-canonical-schema)
+- [7. Projection Configs](#7-projection-configs)
+- [8. Testing](#8-testing)
+- [9. Known Limitations & Future Work](#9-known-limitations--future-work)
+- [10. Repository Layout](#10-repository-layout)
 
 ---
 
-## The problem
+## 1. The Problem
 
 Candidate data arrives from many places at once. Downstream products need one clean
-profile per candidate: a fixed set of fields, normalized formats, deduplicated
-across sources, with a record of **where each value came from** and **how confident**
-we are in it. Sources may be missing, empty, or malformed, and the same person can
-appear in several sources with conflicting values.
+profile per candidate: a fixed set of fields, normalized formats, deduplicated across
+sources, with a record of **where each value came from** and **how confident** we are
+in it. Sources may be missing, empty, or malformed, and the same person can appear in
+several sources with conflicting values.
 
 This project builds that transformer, plus a **runtime projection layer** so the same
 canonical record can be reshaped into different output schemas (e.g. an HR view vs. a
@@ -41,77 +42,97 @@ technical view) with no code change.
 
 ---
 
-## Architecture
+## 2. Architecture
 
-Eight-stage pipeline. Everything **before** the canonical record is *cleaning*;
+An eight-stage pipeline. Everything **before** the canonical record is *cleaning*;
 everything **after** is *presentation*.
 
-```
+```text
 Recruiter CSV   ATS JSON   Resume PDF/DOCX   Notes   GitHub   LinkedIn
       └────────────┴──────────┬──────────────┴─────────┴────────┘
                               ▼
-                       Source Adapters              (1) Ingest
-                              ▼                      (2) Extract  -> PerSourceRecord
-                       Normalizers                   (3) Normalize (phone/date/country/email/skills)
+                       Source Adapters            (1) Ingest
+                              ▼                    (2) Extract   → PerSourceRecord
+                       Normalizers                (3) Normalize  (phone/date/country/email/skills)
                               ▼
-                     Identity Resolver               (4) Resolve identity (who is the same person?)
+                     Identity Resolver            (4) Resolve identity (who is the same person?)
                               ▼
-                  Merge + Conflict Resolution        (5) Merge  (Source Priority + agreement)
-                              ▼                       (6) Confidence (per-field + overall)
-                  CANONICAL CANDIDATE RECORD             + provenance for every value
+                  Merge + Conflict Resolution      (5) Merge      (Source Priority + agreement)
+                              ▼                    (6) Confidence (per-field + overall) + provenance
+                  CANONICAL CANDIDATE RECORD
                               ▼
-                     Projection layer                (7) Project to requested schema
-                              ▼                       (8) Validate against the schema
+                     Projection Layer             (7) Project to requested schema
+                              ▼                    (8) Validate against the schema
         ┌─────────────────────┼─────────────────────┐
         ▼                     ▼                     ▼
    HR projection      Technical projection    Any custom config
 ```
 
-- **Deterministic:** same inputs → byte-identical output. No wall-clock or randomness
-  feeds the result; list fields are deduped and sorted; identity grouping is
-  order-independent.
-- **Explainable:** every field in the record carries a provenance entry
+**Guarantees**
+
+- **Deterministic** — same inputs produce byte-identical output. No wall-clock or
+  randomness feeds the result; list fields are deduped and sorted; identity grouping
+  is order-independent.
+- **Explainable** — every field carries a provenance entry
   `{field, value, source, method, confidence}`. Fields no source supplied get an
   honest `not_found` entry.
-- **Robust:** a missing/garbage source becomes a structured error and the run
+- **Robust** — a missing or garbage source becomes a structured error and the run
   continues; the engine always returns a result and never crashes.
 
 ---
 
-## Key design decisions
+## 3. Key Design Decisions
 
-**Source priority** (most authoritative first), used to break merge conflicts:
-`Recruiter CSV > ATS JSON > Resume > LinkedIn > GitHub > Recruiter notes`.
+### Source Priority
 
-**Confidence formula** (per field, clamped to `[0,1]`):
+Used to break merge conflicts, most authoritative first:
+
+```text
+Recruiter CSV  >  ATS JSON  >  Resume  >  LinkedIn  >  GitHub  >  Recruiter notes
 ```
-Field_Confidence = clamp(0.5*Source_Reliability + 0.3*Agreement + 0.2*Normalization_Quality)
+
+### Confidence Formula
+
+Per field, clamped to `[0, 1]`:
+
+```text
+Field_Confidence = clamp(0.5 * Source_Reliability
+                       + 0.3 * Agreement
+                       + 0.2 * Normalization_Quality)
 ```
+
 `Overall_Confidence` is the mean of the present (non-null) fields' confidences. More
 agreeing sources never lowers confidence.
 
-**Identity resolution** decides whether two records are the same person, using match
-keys in priority order:
-1. exact email  →  merge
-2. exact phone  →  merge
-3. full-name similarity > 0.9 (RapidFuzz)  →  merge **only if no email/phone
-   contradicts it**
+### Identity Resolution
 
-That last guard is deliberate: a shared name is the weakest signal, so two people who
+Match keys are applied in priority order:
+
+1. Exact email → merge
+2. Exact phone → merge
+3. Full-name similarity > 0.9 (RapidFuzz) → merge **only if no email/phone contradicts it**
+
+Rule 3 is deliberately guarded: a shared name is the weakest signal, so two people who
 share a name but have **different email or phone are kept separate**. A shared strong
 identifier (email *or* phone) is enough to merge; a conflicting one blocks a name-only
 merge. `candidate_id` is a deterministic `UUID5` of the group's normalized identity key.
 
-**Normalization:** phones → E.164 (validated, not just reformatted — invalid numbers
-become `null`), dates → `YYYY-MM`, country → ISO-3166 alpha-2, skills → canonical names
-via a layered matcher (exact → alias → fuzzy → `unknown_skills`, kept never dropped).
-The skills vocabulary lives in `config/skills.json` and is editable with no code change.
+### Normalization
+
+| Field | Rule |
+|-------|------|
+| Phones | E.164 (validated, not just reformatted — invalid numbers become `null`) |
+| Dates | `YYYY-MM` |
+| Country | ISO-3166 alpha-2 |
+| Skills | canonical names via layered matcher: exact → alias → fuzzy → `unknown_skills` (kept, never dropped) |
+
+The skills vocabulary lives in `config/skills.json` and is editable with **no code change**.
 
 ---
 
-## Quick start
+## 4. Quick Start
 
-Requires Python 3.11. A virtual environment ships at `.venv`; on Windows run
+Requires **Python 3.11**. A virtual environment ships at `.venv`; on Windows run
 everything with `.venv\Scripts\python.exe`.
 
 ```powershell
@@ -124,7 +145,7 @@ pip install -e ".[test]"
 After install, the console script `candidate-transform` is equivalent to
 `python -m candidate_transformer.cli.main`.
 
-**CLI options**
+### CLI Options
 
 | Option | Required | Meaning |
 |--------|:--------:|---------|
@@ -134,61 +155,98 @@ After install, the console script `candidate-transform` is equivalent to
 | `--show-canonical` | no | Also print the full canonical record, then each projection, as separate labelled sections. |
 
 Adapter routing by extension: `.csv` → Recruiter CSV, `.json` → ATS JSON,
-`.pdf`/`.docx` → Resume, `.txt` → Recruiter notes.
-
----
-
-## Important commands (for evaluators)
-
-All commands run from the repo root. The `input/` folder holds a real resume
-(`NeerajKalkoor.pdf`) plus a Recruiter CSV and ATS JSON for the same candidate.
-
-### 1. Merge once, project many — canonical record + two views in one run
-Builds the canonical record a single time, then projects it into an HR view and a
-technical view, shown as separate sections:
-```powershell
-.venv\Scripts\python.exe -m candidate_transformer.cli.main --input input\neeraj_recruiter.csv --input input\neeraj_ats.json --input input\NeerajKalkoor.pdf --config samples\configs\hr_projection.json --config samples\configs\technical_projection.json --show-canonical
-```
-
-### 2. Full canonical schema (all fields + provenance + confidence)
-```powershell
-.venv\Scripts\python.exe -m candidate_transformer.cli.main --input input\neeraj_recruiter.csv --input input\neeraj_ats.json --input input\NeerajKalkoor.pdf --config samples\configs\full_default.json
-```
-
-### 3. Robustness — a broken source does not stop the run
-The corrupt PDF yields an ingest error (printed to stderr) while the CSV + ATS still
-produce a profile:
-```powershell
-.venv\Scripts\python.exe -m candidate_transformer.cli.main --input input\neeraj_recruiter.csv --input input\neeraj_ats.json --input input\broken_resume.pdf --config samples\configs\hr_projection.json
-```
-
-### 4. Identity — same name, different people are NOT merged
-A Recruiter CSV and an ATS JSON with the same name but different email/phone stay as
-two separate candidates:
-```powershell
-.venv\Scripts\python.exe -m candidate_transformer.cli.main --input input\identity\person_one.csv --input input\identity\person_two_ats.json --config samples\configs\default.json
-```
-
-### 5. Run the provided sample fixtures
-```powershell
-.venv\Scripts\python.exe -m candidate_transformer.cli.main --input samples\recruiter.csv --input samples\ats.json --input samples\resume_jane_doe.docx --input samples\notes.txt --config samples\configs\default.json
-```
-
-### 6. Write output to a file
-```powershell
-.venv\Scripts\python.exe -m candidate_transformer.cli.main --input input\neeraj_recruiter.csv --input input\neeraj_ats.json --input input\NeerajKalkoor.pdf --config samples\configs\full_default.json --output out.json
-```
-
-### 7. Check a single normalizer (handy for the demo)
-```powershell
-.venv\Scripts\python.exe -c "from candidate_transformer.normalizers import normalize_phone, normalize_skill; print(normalize_phone('+91 78928 86596')); print(normalize_skill('Javscript'))"
-```
+`.pdf` / `.docx` → Resume, `.txt` → Recruiter notes.
 
 **Exit codes:** `0` clean · `2` usage/config error · `1` completed with source/projection errors (reported to stderr).
 
 ---
 
-## The canonical schema
+## 5. Important Commands
+
+All commands run from the repo root. The `input/` folder holds a real resume
+(`NeerajKalkoor.pdf`) plus a Recruiter CSV and ATS JSON for the same candidate.
+
+### 5.1 Merge once, project many
+
+Builds the canonical record a single time, then projects it into an HR view and a
+technical view, shown as separate sections:
+
+```powershell
+.venv\Scripts\python.exe -m candidate_transformer.cli.main `
+  --input input\neeraj_recruiter.csv `
+  --input input\neeraj_ats.json `
+  --input input\NeerajKalkoor.pdf `
+  --config samples\configs\hr_projection.json `
+  --config samples\configs\technical_projection.json `
+  --show-canonical
+```
+
+### 5.2 Full canonical schema (all fields + provenance + confidence)
+
+```powershell
+.venv\Scripts\python.exe -m candidate_transformer.cli.main `
+  --input input\neeraj_recruiter.csv `
+  --input input\neeraj_ats.json `
+  --input input\NeerajKalkoor.pdf `
+  --config samples\configs\full_default.json
+```
+
+### 5.3 Robustness — a broken source does not stop the run
+
+The corrupt PDF yields an ingest error (printed to stderr) while the CSV + ATS still
+produce a profile:
+
+```powershell
+.venv\Scripts\python.exe -m candidate_transformer.cli.main `
+  --input input\neeraj_recruiter.csv `
+  --input input\neeraj_ats.json `
+  --input input\broken_resume.pdf `
+  --config samples\configs\hr_projection.json
+```
+
+### 5.4 Identity — same name, different people are NOT merged
+
+A Recruiter CSV and an ATS JSON with the same name but different email/phone stay as
+two separate candidates:
+
+```powershell
+.venv\Scripts\python.exe -m candidate_transformer.cli.main `
+  --input input\identity\person_one.csv `
+  --input input\identity\person_two_ats.json `
+  --config samples\configs\default.json
+```
+
+### 5.5 Run the provided sample fixtures
+
+```powershell
+.venv\Scripts\python.exe -m candidate_transformer.cli.main `
+  --input samples\recruiter.csv `
+  --input samples\ats.json `
+  --input samples\resume_jane_doe.docx `
+  --input samples\notes.txt `
+  --config samples\configs\default.json
+```
+
+### 5.6 Write output to a file
+
+```powershell
+.venv\Scripts\python.exe -m candidate_transformer.cli.main `
+  --input input\neeraj_recruiter.csv `
+  --input input\neeraj_ats.json `
+  --input input\NeerajKalkoor.pdf `
+  --config samples\configs\full_default.json `
+  --output out.json
+```
+
+### 5.7 Spot-check a normalizer
+
+```powershell
+.venv\Scripts\python.exe -c "from candidate_transformer.normalizers import normalize_phone, normalize_skill; print(normalize_phone('+91 78928 86596')); print(normalize_skill('Javscript'))"
+```
+
+---
+
+## 6. The Canonical Schema
 
 | Field | Type | Notes |
 |-------|------|-------|
@@ -209,17 +267,22 @@ two separate candidates:
 
 ---
 
-## Projection configs
+## 7. Projection Configs
 
 A projection config reshapes the output **at runtime, with no code change**. Each
-field entry can rename (`name`/`path` + `from`), pull a single element
-(`emails[0]`), pluck from a list of objects (`skills[].name`), reach nested paths
-(`location.city`), set per-field normalization (`E164`, `canonical`, `lowercase`),
-mark `required`, restrict by `enum`, and choose `on_missing` behaviour
-(`null` / `omit` / `error`). Provenance and confidence are toggled globally with
-`include_provenance` / `include_confidence`.
+field entry can:
 
-Ready-made configs in `samples/configs/`:
+- **Rename** a field (`name`/`path` + `from`)
+- **Pull a single element** from a list (`emails[0]`)
+- **Pluck from a list of objects** (`skills[].name`)
+- **Reach nested paths** (`location.city`)
+- **Set per-field normalization** (`E164`, `canonical`, `lowercase`)
+- Mark `required`, restrict by `enum`, and choose `on_missing` behaviour (`null` / `omit` / `error`)
+
+Provenance and confidence are toggled globally with `include_provenance` /
+`include_confidence`.
+
+### Ready-made configs (`samples/configs/`)
 
 | Config | Shape |
 |--------|-------|
@@ -230,12 +293,12 @@ Ready-made configs in `samples/configs/`:
 | `assignment_example.json` | the assignment's exact example config dialect |
 | `custom.json`, `custom_minimal.json` | alternate views |
 
-Both config dialects are supported: `name`+`from` (ours) and `path`+`from` (the
+Both config dialects are supported: `name` + `from` (ours) and `path` + `from` (the
 assignment's).
 
 ---
 
-## Testing
+## 8. Testing
 
 ```powershell
 # Full suite (399 tests, including Hypothesis property-based tests)
@@ -250,29 +313,28 @@ assignment's).
 ```
 
 The suite mixes example-based unit/integration tests with **property-based tests**
-that assert the core invariants across many generated inputs: determinism,
-robustness on arbitrary/garbage input, order-independent identity grouping,
-confidence bounds, and provenance completeness.
+that assert the core invariants across many generated inputs: determinism, robustness
+on arbitrary/garbage input, order-independent identity grouping, confidence bounds,
+and provenance completeness.
 
 ---
 
-## Known limitations & future work
+## 9. Known Limitations & Future Work
 
 - **Identity matching is O(n²)** — fine for thousands of candidates (the target
   scale); beyond ~10k it needs blocking/indexing (hash-join on exact keys +
   phonetic/prefix blocking for fuzzy names).
 - **Extraction is deterministic heuristics** (regex, keyword lists, ATS field map,
-  section headers) — good precision, limited recall on unfamiliar layouts. It
-  degrades gracefully to `null` rather than guessing. A production system would add
+  section headers) — good precision, limited recall on unfamiliar layouts. It degrades
+  gracefully to `null` rather than guessing. A production system would add
   ML/layout-aware extraction, at the cost of determinism.
-- **DOCX hyperlink URLs** that aren't visible text aren't extracted (PDF hyperlinks
-  are).
+- **DOCX hyperlink URLs** that aren't visible text aren't extracted (PDF hyperlinks are).
 - Some heuristics (ATS field map, resume section/keyword lists) are still hardcoded;
   they could be externalized to `config/` like the skills dictionary already is.
 
 ---
 
-## Repository layout
+## 10. Repository Layout
 
 | Path | What it is |
 |------|------------|
@@ -286,5 +348,3 @@ confidence bounds, and provenance completeness.
 | `input/` | real-resume demo dataset (CSV + ATS + PDF, plus identity examples) |
 | `tests/` | pytest + Hypothesis suite |
 | `commands.md` | quick command reference |
-#   e i g h t f o l d a i  
- 

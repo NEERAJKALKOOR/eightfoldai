@@ -1,0 +1,23 @@
+John Rivera
+john.rivera@example.com | github.com/johnrivera | San Francisco, CA, US
+
+SUMMARY
+Backend-focused software engineer.
+
+EXPERIENCE
+Initech - Software Engineer
+Jan 2021 - Present
+- Built internal services
+
+SKILLS
+Backend: Java, Spring Boot
+Frontend: React.js, HTML, CSS
+Other: CoolFramework3000
+
+EDUCATION
+Stanford University
+B.S. in Computer Science, 2018
+
+PROJECTS
+Personal Portfolio
+- A cool project using SomethingElse

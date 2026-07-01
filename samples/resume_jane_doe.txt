@@ -1,0 +1,26 @@
+JANE DOE
+jane.doe@example.com | +1 415-555-2671 | San Francisco, CA, USA
+linkedin.com/in/janedoe | github.com/janedoe
+
+SUMMARY
+Senior Software Engineer with nearly a decade of experience building
+distributed backend systems and developer tooling.
+
+EXPERIENCE
+
+Acme Corporation - Senior Software Engineer
+March 2019 - Present
+  - Led the migration of a monolith to a service-oriented architecture.
+  - Mentored a team of five engineers across two time zones.
+
+Globex Systems - Software Engineer
+June 2015 - February 2019
+  - Built data ingestion pipelines processing millions of events per day.
+
+EDUCATION
+
+University of California, Berkeley
+B.S. in Computer Science, 2015
+
+SKILLS
+py, JS, Docker, Kubernetes, PostgreSQL

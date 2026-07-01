@@ -1,0 +1,11 @@
+{
+  "include_confidence": false,
+  "include_provenance": false,
+  "fields": [
+    { "name": "name",       "from": "full_name" },
+    { "name": "email",      "from": "emails[0]" },
+    { "name": "phone",      "from": "phones[0]" },
+    { "name": "experience", "from": "years_experience" },
+    { "name": "location",   "from": "location.city" }
+  ]
+}

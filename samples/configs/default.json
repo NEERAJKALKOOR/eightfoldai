@@ -1,0 +1,16 @@
+{
+  "include_provenance": false,
+  "include_confidence": true,
+  "fields": [
+    { "name": "id",            "from": "candidate_id",     "type": "string", "required": true, "on_missing": "error" },
+    { "name": "name",          "from": "full_name",        "type": "string", "required": true, "on_missing": "null" },
+    { "name": "primary_email", "from": "emails[0]",        "type": "string", "on_missing": "null" },
+    { "name": "phone",         "from": "phones[0]",        "type": "string", "normalize": "E164", "on_missing": "null" },
+    { "name": "country",       "from": "location.country", "type": "string", "enum": ["US", "IN", "GB"], "on_missing": "omit" },
+    { "name": "skills",        "from": "skills[].name",    "type": "array",  "element_type": "string", "on_missing": "null" },
+    { "name": "unknown_skills","from": "unknown_skills",   "type": "array",  "element_type": "string", "on_missing": "null" },
+    { "name": "experience",    "from": "experience",       "type": "array",
+      "element_type": { "company": "string", "title": "string", "start": "string", "end": "string" } },
+    { "name": "linkedin",      "from": "links.linkedin",   "type": "string", "normalize": "lowercase", "on_missing": "omit" }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "include_confidence": true,
+  "include_provenance": false,
+  "fields": [
+    { "name": "candidate_id", "from": "candidate_id" },
+    { "name": "name",         "from": "full_name" },
+    { "name": "skills",       "from": "skills[].name" },
+    { "name": "github",       "from": "links.github" },
+    { "name": "experience",   "from": "years_experience" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "login": "octocat",
+  "name": "The Octocat",
+  "bio": null,
+  "location": "San Francisco",
+  "email": null,
+  "html_url": "https://github.com/octocat",
+  "languages": [
+    "HTML",
+    "CSS",
+    "Ruby"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "login": "janedoe",
+  "name": "Jane Doe",
+  "bio": "Senior Software Engineer building distributed systems",
+  "location": "San Francisco, CA, USA",
+  "email": "jane.doe@example.com",
+  "html_url": "https://github.com/janedoe",
+  "languages": ["Python", "Go"],
+  "repositories": [
+    { "name": "service-mesh", "language": "Go" },
+    { "name": "data-tools", "language": "Python" },
+    { "name": "infra", "language": "HCL" }
+  ]
+}

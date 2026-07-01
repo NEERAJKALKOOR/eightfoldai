@@ -1,0 +1,12 @@
+{
+  "include_provenance": true,
+  "include_confidence": false,
+  "fields": [
+    { "name": "candidate",     "from": "full_name",      "type": "string", "required": true, "on_missing": "error" },
+    { "name": "work_email",    "from": "emails[0]",      "type": "string", "on_missing": "null" },
+    { "name": "contact_phone", "from": "phones[0]",      "type": "string", "on_missing": "omit" },
+    { "name": "city",          "from": "location.city",  "type": "string", "on_missing": "null" },
+    { "name": "headline",      "from": "headline",       "type": "string", "on_missing": "null" },
+    { "name": "github_url",    "from": "links.github",   "type": "string", "normalize": "lowercase", "on_missing": "omit" }
+  ]
+}

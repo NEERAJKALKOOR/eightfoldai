@@ -1,0 +1,133 @@
+{
+  "profiles": [
+    {
+      "id": "0ee497cd-2fda-56ab-bf63-595b75d25220",
+      "name": "Bob Lee",
+      "primary_email": "bob.lee@example.com",
+      "phone": null,
+      "skills": [],
+      "unknown_skills": [],
+      "experience": [
+        {
+          "company": null,
+          "title": "Developer",
+          "start": null,
+          "end": null,
+          "summary": null
+        }
+      ],
+      "overall_confidence": 0.9749999999999999
+    },
+    {
+      "id": "2d77adb9-5962-541a-b7b7-496dc19168e3",
+      "name": "Jane Doe",
+      "primary_email": "jane.doe@example.com",
+      "phone": "+14155552671",
+      "country": "US",
+      "skills": [
+        "Docker",
+        "JavaScript",
+        "Kubernetes",
+        "PostgreSQL",
+        "Python",
+        "Rust"
+      ],
+      "unknown_skills": [],
+      "experience": [
+        {
+          "company": "Acme Corp",
+          "title": "Senior Engineer",
+          "start": null,
+          "end": null,
+          "summary": null
+        },
+        {
+          "company": "Acme Corporation",
+          "title": "Staff Engineer",
+          "start": null,
+          "end": null,
+          "summary": null
+        },
+        {
+          "company": "Acme Corporation",
+          "title": "Senior Software Engineer",
+          "start": "2019-03",
+          "end": null,
+          "summary": "Led the migration of a monolith to a service-oriented architecture. Mentored a team of five engineers across two time zones."
+        },
+        {
+          "company": "Globex Systems",
+          "title": "Software Engineer",
+          "start": "2015-06",
+          "end": "2019-02",
+          "summary": "Built data ingestion pipelines processing millions of events per day."
+        }
+      ],
+      "linkedin": "linkedin.com/in/janedoe",
+      "overall_confidence": 0.921
+    },
+    {
+      "id": "5bbc134c-e896-5de2-89a4-38809de661a7",
+      "name": "John Smith",
+      "primary_email": "john.smith@example.com",
+      "phone": null,
+      "skills": [],
+      "unknown_skills": [],
+      "experience": [
+        {
+          "company": "Globex",
+          "title": "Product Manager",
+          "start": null,
+          "end": null,
+          "summary": null
+        }
+      ],
+      "overall_confidence": 0.9749999999999999
+    },
+    {
+      "id": "8026b273-0e89-541f-a39f-106efe4ad6da",
+      "name": "Jon Smyth",
+      "primary_email": "jon.smyth@globex.net",
+      "phone": "+14155551234",
+      "skills": [
+        "Go",
+        "Terraform"
+      ],
+      "unknown_skills": [],
+      "experience": [
+        {
+          "company": "Globex",
+          "title": "Engineering Manager",
+          "start": null,
+          "end": null,
+          "summary": null
+        }
+      ],
+      "overall_confidence": 0.9500000000000001
+    },
+    {
+      "id": "da1f9333-f0be-5484-a903-38fc8a05101e",
+      "name": "Maria Garcia",
+      "primary_email": "maria.garcia@example.com",
+      "phone": "+442079460000",
+      "skills": [
+        "Python"
+      ],
+      "unknown_skills": [
+        "wizardry"
+      ],
+      "experience": [
+        {
+          "company": "Initech",
+          "title": "Data Scientist",
+          "start": null,
+          "end": null,
+          "summary": null
+        }
+      ],
+      "overall_confidence": 0.9442857142857143
+    }
+  ],
+  "errors": [],
+  "exit_code": 0
+}

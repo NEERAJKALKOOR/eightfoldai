@@ -1,0 +1,13 @@
+{
+  "login": "neerajkalkoor",
+  "name": "Neeraj Kalkoor",
+  "bio": "AI/DS engineering student | full-stack & systems",
+  "location": "Bangalore, Karnataka, India",
+  "html_url": "https://github.com/neerajkalkoor",
+  "languages": ["Python", "JavaScript", "Java"],
+  "repositories": [
+    { "name": "bharatstore", "language": "Dart" },
+    { "name": "newsphere", "language": "JavaScript" },
+    { "name": "parallel-web-crawler", "language": "Go" }
+  ]
+}

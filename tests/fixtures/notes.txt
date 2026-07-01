@@ -1,0 +1,7 @@
+Call notes - 2024-03-12
+
+Spoke with Jane Doe today about the senior backend role. She can be
+reached at jane.doe@example.com or 415.555.2671. Currently at Acme,
+title is "Tech Lead" on her current team (note: differs from what the
+ATS shows). Strong on py and JS, also mentioned some Rust on the side.
+Available to start in ~6 weeks. Good culture fit, moving to onsite.

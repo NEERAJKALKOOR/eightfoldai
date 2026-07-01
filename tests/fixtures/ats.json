@@ -1,0 +1,29 @@
+[
+  {
+    "candidateName": "Jane Doe",
+    "emailAddress": "jane.doe@example.com",
+    "phoneNumber": "+1 (415) 555-2671",
+    "currentEmployer": "Acme Corporation",
+    "jobTitle": "Staff Engineer",
+    "yrsExp": 9,
+    "skillList": ["py", "JS", "Kubernetes"]
+  },
+  {
+    "candidateName": "Maria Garcia",
+    "emailAddress": "maria.garcia@example.com",
+    "phoneNumber": "+44 20 7946 0000",
+    "currentEmployer": "Initech",
+    "jobTitle": "Data Scientist",
+    "yrsExp": 6,
+    "skillList": ["python3", "wizardry"]
+  },
+  {
+    "candidateName": "Jon Smyth",
+    "emailAddress": "jon.smyth@globex.net",
+    "phoneNumber": "+1 (415) 555-1234",
+    "currentEmployer": "Globex",
+    "jobTitle": "Engineering Manager",
+    "yrsExp": 11,
+    "skillList": ["Go", "Terraform"]
+  }
+]

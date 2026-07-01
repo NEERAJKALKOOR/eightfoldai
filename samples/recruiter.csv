@@ -1,0 +1,4 @@
+name,email,phone,current_company,title
+Jane Doe,Jane.Doe@example.com,(415) 555-2671,Acme Corp,Senior Engineer
+John Smith,john.smith@example.com,415-555-9000,Globex,Product Manager
+Bob Lee,bob.lee@example.com,not-a-phone,,Developer

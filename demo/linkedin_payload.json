@@ -1,0 +1,24 @@
+{
+  "name": "Neeraj Kalkoor",
+  "headline": "AI & Data Science @ MSRIT",
+  "location": "Bangalore, Karnataka, India",
+  "profile_url": "https://www.linkedin.com/in/neerajkalkoor",
+  "skills": ["Python", "React", "Node.js", "SQL", "Leadership"],
+  "experience": [
+    {
+      "company": "BharatStore",
+      "title": "Founder / Developer",
+      "start": "2024",
+      "end": "Present",
+      "description": "Offline-first POS app for kirana stores."
+    }
+  ],
+  "education": [
+    {
+      "institution": "M.S. Ramaiah Institute of Technology",
+      "degree": "B.E.",
+      "field": "AI & Data Science",
+      "end_year": "2027"
+    }
+  ]
+}

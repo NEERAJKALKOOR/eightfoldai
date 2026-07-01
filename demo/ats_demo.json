@@ -1,0 +1,6 @@
+{
+  "candidateName": "Demo Person",
+  "emailAddress": "demo.person@example.com",
+  "phoneNumber": "+1 212 555 0100",
+  "skillList": ["Python", "Javscript", "postgres", "CoolFramework3000", "Blockchain"]
+}

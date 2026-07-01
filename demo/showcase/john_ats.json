@@ -1,0 +1,9 @@
+{
+  "candidateName": "John Rivera",
+  "emailAddress": "john.rivera@example.com",
+  "phoneNumber": "+1-415-555-0142",
+  "currentEmployer": "Globex",
+  "jobTitle": "Staff Engineer",
+  "yrsExp": 6,
+  "skillList": ["Python", "PostgreSQL", "Docker"]
+}

@@ -1,0 +1,12 @@
+{
+  "include_provenance": false,
+  "include_confidence": false,
+  "fields": [
+    { "name": "id",         "from": "candidate_id",     "type": "string", "required": true, "on_missing": "error" },
+    { "name": "name",       "from": "full_name",        "type": "string", "on_missing": "null" },
+    { "name": "email",      "from": "emails[0]",        "type": "string", "on_missing": "null" },
+    { "name": "phone",      "from": "phones[0]",        "type": "string", "on_missing": "omit" },
+    { "name": "country",    "from": "location.country", "type": "string", "enum": ["US", "IN", "GB"], "on_missing": "omit" },
+    { "name": "top_skills", "from": "skills[].name",    "type": "array",  "element_type": "string", "on_missing": "null" }
+  ]
+}

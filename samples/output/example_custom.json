@@ -1,0 +1,695 @@
+{
+  "profiles": [
+    {
+      "candidate": "Bob Lee",
+      "work_email": "bob.lee@example.com",
+      "city": null,
+      "headline": "Developer",
+      "provenance": [
+        {
+          "field": "full_name",
+          "value": "Bob Lee",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.9749999999999999
+        },
+        {
+          "field": "emails",
+          "value": "bob.lee@example.com",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.9749999999999999
+        },
+        {
+          "field": "phones",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "location",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.linkedin",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.github",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.portfolio",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.other",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "headline",
+          "value": "Developer",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.9749999999999999
+        },
+        {
+          "field": "years_experience",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "skills",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "experience",
+          "value": {
+            "company": null,
+            "title": "Developer",
+            "start": null,
+            "end": null,
+            "summary": null
+          },
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.9749999999999999
+        },
+        {
+          "field": "education",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "candidate": "Jane Doe",
+      "work_email": "jane.doe@example.com",
+      "contact_phone": "+14155552671",
+      "city": "San Francisco",
+      "headline": "Senior Engineer",
+      "github_url": "github.com/janedoe",
+      "provenance": [
+        {
+          "field": "full_name",
+          "value": "Jane Doe",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.8999999999999999
+        },
+        {
+          "field": "emails",
+          "value": "jane.doe@example.com",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#0",
+          "method": "ats_field:emailAddress",
+          "confidence": 0.95
+        },
+        {
+          "field": "emails",
+          "value": "jane.doe@example.com",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\notes.txt",
+          "method": "regex_email",
+          "confidence": 0.8
+        },
+        {
+          "field": "emails",
+          "value": "jane.doe@example.com",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.9749999999999999
+        },
+        {
+          "field": "emails",
+          "value": "jane.doe@example.com",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "regex_email",
+          "confidence": 0.925
+        },
+        {
+          "field": "phones",
+          "value": "+14155552671",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#0",
+          "method": "ats_field:phoneNumber",
+          "confidence": 0.95
+        },
+        {
+          "field": "phones",
+          "value": "+14155552671",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "regex_phone",
+          "confidence": 0.925
+        },
+        {
+          "field": "location",
+          "value": {
+            "city": "San Francisco",
+            "region": "CA",
+            "country": "US"
+          },
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "resume_contact_line",
+          "confidence": 0.925
+        },
+        {
+          "field": "links.linkedin",
+          "value": "linkedin.com/in/janedoe",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "regex_profile_links",
+          "confidence": 0.925
+        },
+        {
+          "field": "links.github",
+          "value": "github.com/janedoe",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "regex_profile_links",
+          "confidence": 0.925
+        },
+        {
+          "field": "links.portfolio",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.other",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "headline",
+          "value": "Senior Engineer",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.7749999999999999
+        },
+        {
+          "field": "years_experience",
+          "value": 9,
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#0",
+          "method": "ats_field:yrsExp",
+          "confidence": 0.95
+        },
+        {
+          "field": "skills",
+          "value": "Docker",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "pdf_section_skills",
+          "confidence": 0.7250000000000001
+        },
+        {
+          "field": "skills",
+          "value": "JavaScript",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#0",
+          "method": "ats_field:skillList",
+          "confidence": 0.91
+        },
+        {
+          "field": "skills",
+          "value": "JavaScript",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\notes.txt",
+          "method": "regex_skill",
+          "confidence": 0.76
+        },
+        {
+          "field": "skills",
+          "value": "JavaScript",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "pdf_section_skills",
+          "confidence": 0.885
+        },
+        {
+          "field": "skills",
+          "value": "Kubernetes",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#0",
+          "method": "ats_field:skillList",
+          "confidence": 0.8500000000000001
+        },
+        {
+          "field": "skills",
+          "value": "Kubernetes",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "pdf_section_skills",
+          "confidence": 0.825
+        },
+        {
+          "field": "skills",
+          "value": "PostgreSQL",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "pdf_section_skills",
+          "confidence": 0.7250000000000001
+        },
+        {
+          "field": "skills",
+          "value": "Python",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#0",
+          "method": "ats_field:skillList",
+          "confidence": 0.91
+        },
+        {
+          "field": "skills",
+          "value": "Python",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\notes.txt",
+          "method": "regex_skill",
+          "confidence": 0.76
+        },
+        {
+          "field": "skills",
+          "value": "Python",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "pdf_section_skills",
+          "confidence": 0.885
+        },
+        {
+          "field": "skills",
+          "value": "Rust",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\notes.txt",
+          "method": "regex_skill",
+          "confidence": 0.6
+        },
+        {
+          "field": "experience",
+          "value": {
+            "company": "Acme Corp",
+            "title": "Senior Engineer",
+            "start": null,
+            "end": null,
+            "summary": null
+          },
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.9749999999999999
+        },
+        {
+          "field": "experience",
+          "value": {
+            "company": "Acme Corporation",
+            "title": "Staff Engineer",
+            "start": null,
+            "end": null,
+            "summary": null
+          },
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#0",
+          "method": "ats_field:currentEmployer+jobTitle",
+          "confidence": 0.95
+        },
+        {
+          "field": "experience",
+          "value": {
+            "company": "Acme Corporation",
+            "title": "Senior Software Engineer",
+            "start": "2019-03",
+            "end": null,
+            "summary": "Led the migration of a monolith to a service-oriented architecture. Mentored a team of five engineers across two time zones."
+          },
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "resume_section_experience",
+          "confidence": 0.925
+        },
+        {
+          "field": "experience",
+          "value": {
+            "company": "Globex Systems",
+            "title": "Software Engineer",
+            "start": "2015-06",
+            "end": "2019-02",
+            "summary": "Built data ingestion pipelines processing millions of events per day."
+          },
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "resume_section_experience",
+          "confidence": 0.925
+        },
+        {
+          "field": "education",
+          "value": {
+            "institution": "University of California, Berkeley",
+            "degree": "B.S.",
+            "field": "Computer Science",
+            "end_year": 2015
+          },
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\resume_jane_doe.docx",
+          "method": "resume_section_education",
+          "confidence": 0.925
+        }
+      ]
+    },
+    {
+      "candidate": "John Smith",
+      "work_email": "john.smith@example.com",
+      "city": null,
+      "headline": "Product Manager",
+      "provenance": [
+        {
+          "field": "full_name",
+          "value": "John Smith",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.9749999999999999
+        },
+        {
+          "field": "emails",
+          "value": "john.smith@example.com",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.9749999999999999
+        },
+        {
+          "field": "phones",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "location",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.linkedin",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.github",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.portfolio",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.other",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "headline",
+          "value": "Product Manager",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.9749999999999999
+        },
+        {
+          "field": "years_experience",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "skills",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "experience",
+          "value": {
+            "company": "Globex",
+            "title": "Product Manager",
+            "start": null,
+            "end": null,
+            "summary": null
+          },
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\recruiter.csv",
+          "method": "csv_column",
+          "confidence": 0.9749999999999999
+        },
+        {
+          "field": "education",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "candidate": "Jon Smyth",
+      "work_email": "jon.smyth@globex.net",
+      "contact_phone": "+14155551234",
+      "city": null,
+      "headline": "Engineering Manager",
+      "provenance": [
+        {
+          "field": "full_name",
+          "value": "Jon Smyth",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#2",
+          "method": "ats_field:candidateName",
+          "confidence": 0.95
+        },
+        {
+          "field": "emails",
+          "value": "jon.smyth@globex.net",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#2",
+          "method": "ats_field:emailAddress",
+          "confidence": 0.95
+        },
+        {
+          "field": "phones",
+          "value": "+14155551234",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#2",
+          "method": "ats_field:phoneNumber",
+          "confidence": 0.95
+        },
+        {
+          "field": "location",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.linkedin",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.github",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.portfolio",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.other",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "headline",
+          "value": "Engineering Manager",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#2",
+          "method": "ats_field:jobTitle",
+          "confidence": 0.95
+        },
+        {
+          "field": "years_experience",
+          "value": 11,
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#2",
+          "method": "ats_field:yrsExp",
+          "confidence": 0.95
+        },
+        {
+          "field": "skills",
+          "value": "Go",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#2",
+          "method": "ats_field:skillList",
+          "confidence": 0.95
+        },
+        {
+          "field": "skills",
+          "value": "Terraform",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#2",
+          "method": "ats_field:skillList",
+          "confidence": 0.95
+        },
+        {
+          "field": "experience",
+          "value": {
+            "company": "Globex",
+            "title": "Engineering Manager",
+            "start": null,
+            "end": null,
+            "summary": null
+          },
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#2",
+          "method": "ats_field:currentEmployer+jobTitle",
+          "confidence": 0.95
+        },
+        {
+          "field": "education",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "candidate": "Maria Garcia",
+      "work_email": "maria.garcia@example.com",
+      "contact_phone": "+442079460000",
+      "city": null,
+      "headline": "Data Scientist",
+      "provenance": [
+        {
+          "field": "full_name",
+          "value": "Maria Garcia",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#1",
+          "method": "ats_field:candidateName",
+          "confidence": 0.95
+        },
+        {
+          "field": "emails",
+          "value": "maria.garcia@example.com",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#1",
+          "method": "ats_field:emailAddress",
+          "confidence": 0.95
+        },
+        {
+          "field": "phones",
+          "value": "+442079460000",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#1",
+          "method": "ats_field:phoneNumber",
+          "confidence": 0.95
+        },
+        {
+          "field": "location",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.linkedin",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.github",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.portfolio",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "links.other",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        },
+        {
+          "field": "headline",
+          "value": "Data Scientist",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#1",
+          "method": "ats_field:jobTitle",
+          "confidence": 0.95
+        },
+        {
+          "field": "years_experience",
+          "value": 6,
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#1",
+          "method": "ats_field:yrsExp",
+          "confidence": 0.95
+        },
+        {
+          "field": "skills",
+          "value": "Python",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#1",
+          "method": "ats_field:skillList",
+          "confidence": 0.91
+        },
+        {
+          "field": "unknown_skills",
+          "value": "wizardry",
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#1",
+          "method": "ats_field:skillList",
+          "confidence": 0.0
+        },
+        {
+          "field": "experience",
+          "value": {
+            "company": "Initech",
+            "title": "Data Scientist",
+            "start": null,
+            "end": null,
+            "summary": null
+          },
+          "source": "C:\\Users\\kalko\\Desktop\\neeraj\\intern\\samples\\ats.json#1",
+          "method": "ats_field:currentEmployer+jobTitle",
+          "confidence": 0.95
+        },
+        {
+          "field": "education",
+          "value": null,
+          "source": null,
+          "method": "not_found",
+          "confidence": 0.0
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "exit_code": 0
+}
